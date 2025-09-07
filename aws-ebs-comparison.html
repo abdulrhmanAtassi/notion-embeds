@@ -1,0 +1,198 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Amazon EBS Volume Comparison</title>
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #0f172a;
+    --muted: #64748b;
+    --border: #e2e8f0;
+    --header-bg: #f8fafc;
+    --header-accent: #eef2ff;
+  }
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    line-height: 1.45;
+  }
+  .wrap {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  h1 {
+    font-size: 20px;
+    margin: 0 0 12px 0;
+  }
+  .table-scroll {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    background: var(--bg);
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    min-width: 900px;
+  }
+  thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--header-bg);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--fg);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 14px;
+    text-align: center;
+  }
+  thead tr.group th {
+    background: var(--header-accent);
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+  }
+  tbody th,
+  tbody td {
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    padding: 12px 14px;
+    font-size: 14px;
+  }
+  tbody th {
+    background: #fcfcfd;
+    width: 220px;
+    font-weight: 600;
+  }
+  ul {
+    padding-left: 18px;
+    margin: 6px 0 0 0;
+  }
+  .note {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 6px;
+  }
+  /* Rounded corners */
+  table thead tr:first-child th:first-child {
+    border-top-left-radius: 12px;
+  }
+  table thead tr:first-child th:last-child {
+    border-top-right-radius: 12px;
+  }
+  table tbody tr:last-child th:first-child {
+    border-bottom-left-radius: 12px;
+  }
+  table tbody tr:last-child td:last-child {
+    border-bottom-right-radius: 12px;
+  }
+  td {
+    border:0.25px solid var(--border);
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Amazon EBS Volume Comparison</h1>
+    <div class="table-scroll">
+      <table role="table" style="text-align: center;">
+        <thead>
+          <tr class="group">
+            <th></th>
+            <th colspan="2">Amazon EBS General Purpose SSD volumes</th>
+            <th colspan="2">Amazon EBS Provisioned IOPS SSD volumes</th>
+          </tr>
+          <tr  >
+            <th>Volume type</th>
+            <th>gp3</th>
+            <th>gp2</th>
+            <th>io2 Block Express</th>
+            <th>io1</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>Durability</th>
+            <td colspan="2" style="text-align: center;">99.8% – 99.9% durability<br><span class="note">(0.1% – 0.2% annual failure rate)</span></td>
+            
+            <td>99.999% durability<br><span class="note">(0.001% annual failure rate)</span></td>
+            <td>99.8% – 99.9% durability<br><span class="note">(0.1% – 0.2% annual failure rate)</span></td>
+          </tr>
+          <tr>
+            <th>Use cases</th>
+            <td colspan="2" style="text-align: center;">
+              <ul>
+                <li>Transactional workloads</li>
+                <li>Virtual desktops</li>
+                <li>Medium-sized, single-instance databases</li>
+                <li>Low-latency interactive applications</li>
+                <li>Boot volumes</li>
+                <li>Development and test environments</li>
+              </ul>
+            </td>
+            
+            <td>
+              <strong>Workloads that require:</strong>
+              <ul>
+                <li>Sub-millisecond latency</li>
+                <li>Sustained IOPS performance</li>
+                <li>More than 64,000 IOPS or 1,000 MiB/s of throughput</li>
+              </ul>
+            </td>
+            <td>
+              <ul>
+                <li>Workloads that require sustained IOPS performance or more than 16,000 IOPS</li>
+                <li>I/O‑intensive database workloads</li>
+              </ul>
+            </td>
+          </tr>
+          <tr>
+            <th>Volume size</th>
+            <td colspan="2" style="text-align: center;">1 GiB – 16 TiB</td>
+            <td colspan="2" style="text-align: center;">4 GiB – 64 TiB</td>
+          </tr>
+          <tr>
+            <th>Max IOPS</th>
+            <td colspan="2" style="text-align: center;">16,000 (64 KiB I/O)</td>
+            <td>256,000 (16 KiB I/O)</td>
+            <td>64,000 (16 KiB I/O)</td>
+          </tr>
+          <tr>
+            <th>Max throughput</th>
+            <td>1,000 MiB/s</td>
+            <td>250 MiB/s</td>
+            <td>4,000 MiB/s</td>
+            <td>1,000 MiB/s</td>
+          </tr>
+          <tr>
+            <th>Amazon EBS Multi‑attach</th>
+            <td colspan="2">Not supported</td>
+            <td colspan="2">Supported</td>
+          </tr>
+          <tr>
+            <th>NVMe reservations</th>
+            <td colspan="2">Not supported</td>
+            <td>Supported</td>
+            <td>Not supported</td>
+          </tr>
+          <tr>
+            <th>Boot volume</th>
+            <td colspan="2">Supported</td>
+            <td colspan="2">Supported</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">Tip: In Notion, you can embed this HTML page via a public URL (e.g., GitHub Pages/Netlify) or copy the rendered table from your browser and paste it into Notion as a table.</p>
+  </div>
+</body>
+</html>
