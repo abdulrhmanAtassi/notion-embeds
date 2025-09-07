@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Amazon EBS Volume Comparison</title>
+<title>Amazon EBS HDD Volume Comparison</title>
 <style>
   :root {
     --bg: #ffffff;
@@ -23,7 +23,7 @@
     line-height: 1.45;
   }
   .wrap {
-    max-width: 1100px;
+    max-width: 900px;
     margin: 24px auto;
     padding: 0 16px;
   }
@@ -42,7 +42,7 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    min-width: 900px;
+    min-width: 600px;
   }
   thead th {
     position: sticky;
@@ -72,6 +72,7 @@
     background: #fcfcfd;
     width: 220px;
     font-weight: 600;
+    text-align: left;
   }
   ul {
     padding-left: 18px;
@@ -97,102 +98,74 @@
   }
   td {
     border:0.25px solid var(--border);
+    text-align: center;
   }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <h1>Amazon EBS Volume Comparison</h1>
+    <h1>Amazon EBS HDD Volume Comparison</h1>
     <div class="table-scroll">
-      <table role="table" style="text-align: center;">
+      <table role="table">
         <thead>
           <tr class="group">
             <th></th>
-            <th colspan="2">Amazon EBS General Purpose SSD volumes</th>
-            <th colspan="2">Amazon EBS Provisioned IOPS SSD volumes</th>
+            <th>Throughput Optimized HDD volumes</th>
+            <th>Cold HDD volumes</th>
           </tr>
-          <tr  >
+          <tr>
             <th>Volume type</th>
-            <th>gp3</th>
-            <th>gp2</th>
-            <th>io2 Block Express</th>
-            <th>io1</th>
+            <th>st1</th>
+            <th>sc1</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <th>Durability</th>
-            <td colspan="2" style="text-align: center;">99.8% – 99.9% durability<br><span class="note">(0.1% – 0.2% annual failure rate)</span></td>
-            
-            <td>99.999% durability<br><span class="note">(0.001% annual failure rate)</span></td>
-            <td>99.8% – 99.9% durability<br><span class="note">(0.1% – 0.2% annual failure rate)</span></td>
+            <td colspan="2">99.8% – 99.9% durability<br><span class="note">(0.1% – 0.2% annual failure rate)</span></td>
           </tr>
           <tr>
             <th>Use cases</th>
-            <td colspan="2" style="text-align: center;">
-              <ul>
-                <li>Transactional workloads</li>
-                <li>Virtual desktops</li>
-                <li>Medium-sized, single-instance databases</li>
-                <li>Low-latency interactive applications</li>
-                <li>Boot volumes</li>
-                <li>Development and test environments</li>
-              </ul>
-            </td>
-            
             <td>
-              <strong>Workloads that require:</strong>
               <ul>
-                <li>Sub-millisecond latency</li>
-                <li>Sustained IOPS performance</li>
-                <li>More than 64,000 IOPS or 1,000 MiB/s of throughput</li>
+                <li>Big data</li>
+                <li>Data warehouses</li>
+                <li>Log processing</li>
               </ul>
             </td>
             <td>
               <ul>
-                <li>Workloads that require sustained IOPS performance or more than 16,000 IOPS</li>
-                <li>I/O‑intensive database workloads</li>
+                <li>Throughput‑oriented storage for infrequently accessed data</li>
+                <li>Scenarios where the lowest storage cost is important</li>
               </ul>
             </td>
           </tr>
           <tr>
             <th>Volume size</th>
-            <td colspan="2" style="text-align: center;">1 GiB – 16 TiB</td>
-            <td colspan="2" style="text-align: center;">4 GiB – 64 TiB</td>
+            <td colspan="2">125 GiB – 16 TiB</td>
           </tr>
           <tr>
-            <th>Max IOPS</th>
-            <td colspan="2" style="text-align: center;">16,000 (64 KiB I/O)</td>
-            <td>256,000 (16 KiB I/O)</td>
-            <td>64,000 (16 KiB I/O)</td>
+            <th>Max IOPS per volume (1 MiB I/O)</th>
+            <td>500</td>
+            <td>250</td>
           </tr>
           <tr>
-            <th>Max throughput</th>
-            <td>1,000 MiB/s</td>
+            <th>Max throughput per volume</th>
+            <td>500 MiB/s</td>
             <td>250 MiB/s</td>
-            <td>4,000 MiB/s</td>
-            <td>1,000 MiB/s</td>
           </tr>
           <tr>
             <th>Amazon EBS Multi‑attach</th>
             <td colspan="2">Not supported</td>
-            <td colspan="2">Supported</td>
-          </tr>
-          <tr>
-            <th>NVMe reservations</th>
-            <td colspan="2">Not supported</td>
-            <td>Supported</td>
-            <td>Not supported</td>
           </tr>
           <tr>
             <th>Boot volume</th>
-            <td colspan="2">Supported</td>
-            <td colspan="2">Supported</td>
+            <td colspan="2">Not supported</td>
           </tr>
         </tbody>
       </table>
     </div>
-    <p class="note">Tip: In Notion, you can embed this HTML page via a public URL (e.g., GitHub Pages/Netlify) or copy the rendered table from your browser and paste it into Notion as a table.</p>
+    <p class="note">Tip: In Notion, embed this page via its GitHub Pages URL to preserve formatting.</p>
   </div>
 </body>
 </html>
